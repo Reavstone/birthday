@@ -19,7 +19,6 @@
     html, body { height: 100%; }
     body{
       margin: 0;
-      /* “pimped” system font stack */
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
                    Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
       color: var(--ink);
@@ -27,7 +26,6 @@
       overflow-x: hidden;
     }
 
-    /* Paper background with subtle texture */
     .page{
       position: relative;
       min-height: 100vh;
@@ -43,7 +41,6 @@
       background-position: 0 0, 20px 10px, 0 0, 0 0;
     }
 
-    /* Ink / paper “grime” overlay (CSS-only) */
     .page::before{
       content:"";
       position: absolute;
@@ -193,7 +190,7 @@
       font-size: 18px;
       margin: 10px 0 18px;
       color: rgba(0,0,0,.86);
-      font-weight: 750;
+      font-weight: 800;
       letter-spacing: .2px;
       padding: 10px 14px;
       border-radius: 999px;
@@ -207,77 +204,117 @@
       background: rgba(255,255,255,.55);
       border: 1px solid rgba(0,0,0,.08);
     }
-    .sep{ opacity: .35; font-weight: 800; }
+    .sep{ opacity: .35; font-weight: 900; }
 
-    .section{
-      margin: 18px auto;
-      font-size: 16px;
-      color: rgba(0,0,0,.88);
-      line-height: 1.35;
-    }
+    /* Scrapbook cards */
+    .scrap{
+      position: relative;
+      max-width: 720px;
+      margin: 18px auto 0;
+      text-align: left;
 
-    /* Dress Code POP */
-    .dress{
-      max-width: 680px;
-      margin: 20px auto 8px;
-      padding: 14px 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(225,29,72,.20);
+      padding: 18px 16px 16px;
       background:
-        radial-gradient(circle at 20% 20%, rgba(225,29,72,.12), transparent 55%),
-        radial-gradient(circle at 85% 50%, rgba(2,132,199,.10), transparent 55%),
-        rgba(255,255,255,.42);
-      box-shadow: 0 18px 26px rgba(0,0,0,.10);
+        radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.42));
+      background-size: 9px 9px, 100% 100%;
+
+      border: 1px solid rgba(0,0,0,.10);
+      box-shadow: 0 22px 30px rgba(0,0,0,.10);
+      transform: rotate(var(--rot, -0.7deg));
+      clip-path: polygon(
+        2% 6%, 8% 3%, 15% 5%, 24% 2%, 33% 5%, 41% 3%, 50% 6%, 58% 3%, 66% 5%, 74% 2%, 83% 5%, 92% 3%, 98% 7%,
+        97% 20%, 99% 32%, 97% 46%, 99% 58%, 97% 74%, 95% 92%,
+        82% 98%, 74% 95%, 62% 98%, 52% 95%, 40% 99%, 30% 96%, 20% 98%, 10% 95%, 3% 92%,
+        2% 78%, 4% 66%, 2% 52%, 4% 40%, 2% 26%
+      );
+      border-radius: 18px; /* helps on browsers that ignore clip-path edges a bit */
     }
-    .badge{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-weight: 850;
+
+    /* washi tape */
+    .scrap::before{
+      content:"";
+      position:absolute;
+      top: -12px;
+      left: 26px;
+      width: 118px;
+      height: 28px;
+      border-radius: 10px;
+      background:
+        repeating-linear-gradient(45deg, rgba(255,255,255,.55) 0, rgba(255,255,255,.55) 8px, rgba(0,0,0,.04) 8px, rgba(0,0,0,.04) 16px),
+        rgba(255,255,255,.55);
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 12px 18px rgba(0,0,0,.10);
+      transform: rotate(-6deg);
+      opacity: .95;
+    }
+
+    /* scribble highlight */
+    .scrap .title{
+      display: inline-block;
+      font-weight: 950;
       letter-spacing: .2px;
-      background: rgba(225,29,72,.12);
-      border: 1px solid rgba(225,29,72,.22);
-      color: #9f1239;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-family: ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     }
-    .dress p{
-      margin: 10px 0 0;
+
+    .scrap p{
+      margin: 8px 0 0;
       font-size: 16px;
       font-weight: 650;
+      line-height: 1.35;
       color: rgba(0,0,0,.86);
     }
-    .dress .hint{
+
+    .hint{
       margin-top: 8px;
       font-size: 14px;
-      color: rgba(0,0,0,.68);
+      color: rgba(0,0,0,.70);
     }
+
     .hl{
       padding: 1px 6px;
       border-radius: 8px;
-      background: rgba(34,197,94,.16);
-      border: 1px solid rgba(34,197,94,.22);
-      font-weight: 900;
+      font-weight: 950;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.65);
     }
 
-    .section.blue h3{ color: var(--blue); }
-    .section h3{
-      margin: 0 0 6px;
-      font-size: 18px;
-      letter-spacing: .2px;
-      color: var(--accent);
+    /* dress specific */
+    .dress{ --rot: -0.9deg; border-color: rgba(225,29,72,.18); }
+    .dress .title{
+      background: rgba(225,29,72,.12);
+      border: 1px solid rgba(225,29,72,.18);
+      color: #9f1239;
+    }
+    .dress::after{
+      content:"";
+      position:absolute;
+      right: 18px;
+      top: 16px;
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(225,29,72,.25), transparent 55%),
+        radial-gradient(circle at 70% 70%, rgba(2,132,199,.20), transparent 60%),
+        rgba(255,255,255,.45);
+      border: 1px solid rgba(0,0,0,.08);
+      transform: rotate(7deg);
+      opacity: .9;
     }
 
-    .bring{
-      max-width: 680px;
-      margin: 16px auto 0;
-      padding: 12px 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(2,132,199,.20);
-      background: rgba(255,255,255,.35);
-      box-shadow: 0 12px 22px rgba(0,0,0,.08);
+    /* bring specific */
+    .bring{ --rot: 0.7deg; border-color: rgba(2,132,199,.18); margin-top: 16px; }
+    .bring .title{
+      background: rgba(2,132,199,.12);
+      border: 1px solid rgba(2,132,199,.18);
+      color: #075985;
     }
-    .bring p{ margin: 8px 0 0; font-weight: 650; }
+    .bring::before{ left: auto; right: 28px; transform: rotate(8deg); width: 132px; }
 
     .buttons{
       margin-top: 26px;
@@ -292,7 +329,7 @@
       padding: 14px 26px;
       font-size: 16px;
       cursor: pointer;
-      font-weight: 850;
+      font-weight: 900;
       box-shadow: 0 12px 18px rgba(0,0,0,.12);
       transition: transform .12s ease, filter .12s ease;
       will-change: transform;
@@ -304,30 +341,10 @@
       background: #22c55e;
       color: #052e16;
     }
-    .yes:hover{ filter: brightness(1.02); }
-
     .no{
       background: #fb7185;
       color: #3f0713;
       position: relative;
-    }
-
-    .toast{
-      display: none;
-      max-width: 720px;
-      margin: 16px auto 0;
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-size: 14px;
-      font-weight: 650;
-    }
-    .toast.ok{
-      background: rgba(34,197,94,.14);
-      border: 1px solid rgba(34,197,94,.35);
-    }
-    .toast.warn{
-      background: rgba(251,113,133,.16);
-      border: 1px solid rgba(251,113,133,.35);
     }
 
     @media (max-width: 860px){
@@ -339,6 +356,8 @@
       .ransom{ gap: 6px; }
       .info{ font-size: 16px; }
       .person{ width: 120px; top: 96px; opacity: .9; }
+      .scrap{ text-align: left; }
+      .dress::after{ display:none; }
     }
   </style>
 </head>
@@ -346,13 +365,11 @@
 <body>
   <div class="page">
 
-    <!-- placeholder “people” leaning in -->
     <img class="person left"  src="assets/left-person.svg"  alt="">
     <img class="person right" src="assets/right-person.svg" alt="">
 
     <div class="topline">Einladung zu unserem</div>
 
-    <!-- ransom/cutout headline -->
     <div class="ransom-wrap" aria-label="Geburtstag">
       <div class="ransom">
         <span class="tile t1">G</span>
@@ -377,21 +394,19 @@
         <span class="pill">⏰ <b>19:30</b></span>
       </div>
 
-      <div class="dress" aria-label="Dress Code">
-        <div class="badge">👗 Dress Code</div>
+      <div class="scrap dress" aria-label="Dress Code">
+        <div class="title">👗 Dress Code</div>
         <p>
-          Komm verkleidet als den <span class="hl">ersten Buchstaben</span> deines Namens.
-          (Ja, wirklich. Wir wollen Fotos. 😄)
+          Komm als <span class="hl">erster Buchstabe</span> deines Namens.
+          Je kreativer, desto besser. (Wir wollen Beweisfotos 😄)
         </p>
         <div class="hint">
-          Beispiel: <b>Anna</b> → „A“ (Astronaut, Angel, Alien…) • <b>Max</b> → „M“ (Mario, Minion, Mönch…)
+          Beispiele: <b>Anna</b> → A (Astronaut, Angel, Alien…) • <b>Max</b> → M (Mario, Minion, Magier…)
         </div>
       </div>
 
-      <div class="bring">
-        <div class="badge" style="background: rgba(2,132,199,.12); border-color: rgba(2,132,199,.22); color:#075985;">
-          🥤 Mitbringsl
-        </div>
+      <div class="scrap bring" aria-label="Mitbringsl">
+        <div class="title">🥤 Mitbringsl</div>
         <p>Dein Lieblingsgetränk (und gute Laune) &lt;3</p>
       </div>
 
@@ -399,65 +414,51 @@
         <button class="yes" id="yesBtn">Ja</button>
         <button class="no" id="noBtn">Nein</button>
       </div>
-
-      <div class="toast ok" id="yesToast"></div>
-      <div class="toast warn" id="noToast"></div>
     </div>
 
   </div>
 
   <script>
-    // WhatsApp group invite link:
     const WHATSAPP_INVITE = "https://chat.whatsapp.com/EYwZcsDNvkKGJL02rnB4yU?mode=gi_t";
 
-    const yesToast = document.getElementById("yesToast");
-    const noToast  = document.getElementById("noToast");
-    const yesBtn   = document.getElementById("yesBtn");
-    const noBtn    = document.getElementById("noBtn");
-
-    function showToast(el, text){
-      el.textContent = text;
-      el.style.display = "block";
-      // auto-hide after a bit (optional)
-      window.clearTimeout(el._t);
-      el._t = window.setTimeout(() => { el.style.display = "none"; }, 4500);
-    }
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
 
     yesBtn.addEventListener("click", () => {
-      showToast(yesToast, "Yesss 😄 Öffne die WhatsApp-Gruppe…");
-      setTimeout(() => { window.location.href = WHATSAPP_INVITE; }, 450);
+      setTimeout(() => { window.location.href = WHATSAPP_INVITE; }, 120);
     });
 
-    // NO button: evade 3 times (desktop + phone), then show one confirm popup
     let evadeCount = 0;
     const MAX_EVADE = 3;
 
     function moveNoButton(){
-      // Keep it within viewport-ish bounds
       const btnRect = noBtn.getBoundingClientRect();
       const pad = 12;
 
       const maxX = Math.max(pad, window.innerWidth  - btnRect.width  - pad);
       const maxY = Math.max(pad, window.innerHeight - btnRect.height - pad);
 
-      // Random-ish target position in visible area
       const x = Math.floor(Math.random() * maxX);
       const y = Math.floor(Math.random() * maxY);
 
-      // Move using fixed positioning so it "jumps away" from finger/cursor
       noBtn.style.position = "fixed";
       noBtn.style.left = x + "px";
       noBtn.style.top  = y + "px";
       noBtn.style.zIndex = 9999;
       noBtn.style.transition = "left .12s ease, top .12s ease, transform .12s ease";
       noBtn.style.transform = `rotate(${(Math.random()*10 - 5).toFixed(2)}deg)`;
+    }
 
-      // Little feedback toast
-      showToast(noToast, "Nein? 👀 Versuch’s nochmal…");
+    function resetNoButton(){
+      noBtn.style.position = "";
+      noBtn.style.left = "";
+      noBtn.style.top = "";
+      noBtn.style.zIndex = "";
+      noBtn.style.transform = "";
+      noBtn.style.transition = "";
     }
 
     function handleNoAttempt(evt){
-      // Prevent any click from doing normal stuff
       evt.preventDefault();
       evt.stopPropagation();
 
@@ -467,43 +468,19 @@
         return;
       }
 
-      // 4th attempt: confirm popup
       const ok = window.confirm("Bist du dir sicher? 😭");
-      if (!ok){
-        showToast(yesToast, "Wusste ich’s doch 😄 Drück 'Ja' und ab in die Gruppe!");
-        evadeCount = 0;
-
-        // bring button back near the others (optional)
-        noBtn.style.position = "";
-        noBtn.style.left = "";
-        noBtn.style.top = "";
-        noBtn.style.zIndex = "";
-        noBtn.style.transform = "";
-        return;
-      }
-
-      showToast(noToast, "Okaaay 😢 Dann sehen wir uns beim nächsten Mal. (Wir sind trotzdem traurig.)");
       evadeCount = 0;
+      resetNoButton();
 
-      // optionally return the button to its original place after the decision
-      noBtn.style.position = "";
-      noBtn.style.left = "";
-      noBtn.style.top = "";
-      noBtn.style.zIndex = "";
-      noBtn.style.transform = "";
+      // If they hit cancel -> nothing else happens; if OK -> also nothing else happens.
+      // (You can add optional behavior here, but you asked to remove notifications.)
+      void ok;
     }
 
-    // Desktop: evade before click (mouseenter) AND on click
-    noBtn.addEventListener("mouseenter", (e) => {
-      if (evadeCount < MAX_EVADE) {
-        // only evade if they're trying to reach it
-        moveNoButton();
-        evadeCount++;
-      }
-    });
-
-    // Click / touch: always intercept
+    // Desktop: ONLY on real click
     noBtn.addEventListener("click", handleNoAttempt, { passive: false });
+
+    // Mobile: evade on touch (fine as you said)
     noBtn.addEventListener("touchstart", handleNoAttempt, { passive: false });
   </script>
 </body>
