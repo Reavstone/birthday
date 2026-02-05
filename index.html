@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Birthday Party 🎉</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background: #0b0f19; color: #e8eefc; }
+    .wrap { max-width: 820px; margin: 0 auto; padding: 28px 18px 60px; }
+    .card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 18px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    .meta { opacity: 0.9; line-height: 1.5; }
+    .grid { display: grid; gap: 14px; grid-template-columns: 1fr; margin-top: 16px; }
+    @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    button { border: 0; border-radius: 14px; padding: 12px 14px; font-size: 16px; cursor: pointer; }
+    .yes { background: #4ade80; color: #06210f; font-weight: 700; }
+    .no { background: #fb7185; color: #2b0a10; font-weight: 700; position: relative; }
+    .small { font-size: 13px; opacity: 0.85; margin-top: 10px; }
+    .toast { margin-top: 14px; padding: 12px 14px; border-radius: 14px; display: none; }
+    .toast.ok { background: rgba(74,222,128,0.14); border: 1px solid rgba(74,222,128,0.35); }
+    .toast.warn { background: rgba(251,113,133,0.14); border: 1px solid rgba(251,113,133,0.35); }
+    a { color: #93c5fd; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Birthday Party 🎂🎉</h1>
+      <div class="meta">
+        <div><b>When:</b> Saturday, 19:00</div>
+        <div><b>Where:</b> Our place (address / doorbell / floor)</div>
+        <div><b>Theme:</b> (optional)</div>
+        <div><b>Bring:</b> (optional)</div>
+      </div>
+
+      <div class="grid">
+        <div class="card" style="background: rgba(255,255,255,0.04);">
+          <b>Plan</b>
+          <div class="small">19:00 arrive • 20:00 food • 22:00 games • late: vibes</div>
+        </div>
+        <div class="card" style="background: rgba(255,255,255,0.04);">
+          <b>Contact</b>
+          <div class="small">If you’re lost: +43 … / WhatsApp</div>
+        </div>
+      </div>
+
+      <div class="btns">
+        <button class="yes" id="yesBtn">✅ Yes, I’m coming!</button>
+        <button class="no" id="noBtn">❌ No</button>
+      </div>
+
+      <div class="toast ok" id="yesToast"></div>
+      <div class="toast warn" id="noToast"></div>
+
+      <div class="small">
+        RSVP is just for planning snacks. If you can’t make it, no hard feelings ❤️
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const WHATSAPP_INVITE = "WHATSAPP_INVITE_LINK_HERE"; // e.g. https://chat.whatsapp.com/XXXXXXXXXXXXXXX
+
+    const yesToast = document.getElementById("yesToast");
+    const noToast  = document.getElementById("noToast");
+    const yesBtn   = document.getElementById("yesBtn");
+    const noBtn    = document.getElementById("noBtn");
+
+    yesBtn.addEventListener("click", () => {
+      yesToast.style.display = "block";
+      yesToast.textContent = "Legend. Opening the WhatsApp group…";
+      // open in new tab (less likely blocked than window.open without a click)
+      setTimeout(() => { window.location.href = WHATSAPP_INVITE; }, 450);
+    });
+
+    // Playful “are you sure?” flow (finite, still allows No)
+    const noFlow = [
+      { msg: "Are you sure? We were counting on you 😭", type: "confirm" },
+      { msg: "Like… 100% sure-sure?", type: "confirm" },
+      { msg: "Last chance: we’ll save you cake 🍰", type: "confirm" },
+      { msg: "Okay okay 😢 If plans change, hit ‘Yes’ anytime.", type: "final" }
+    ];
+    let noStep = 0;
+
+    noBtn.addEventListener("click", () => {
+      // small evasive move for fun (only first 2 times)
+      if (noStep < 2) {
+        const dx = Math.floor((Math.random() * 160) - 80);
+        const dy = Math.floor((Math.random() * 80) - 40);
+        noBtn.style.transform = `translate(${dx}px, ${dy}px)`;
+        setTimeout(() => noBtn.style.transform = "translate(0,0)", 420);
+      }
+
+      const step = noFlow[Math.min(noStep, noFlow.length - 1)];
+      if (step.type === "confirm") {
+        const ok = window.confirm(step.msg);
+        if (!ok) {
+          // They changed their mind -> make it easy
+          yesToast.style.display = "block";
+          yesToast.textContent = "Yesss 😄 Hit ‘Yes’ to join the WhatsApp group!";
+          noStep = 0;
+          return;
+        }
+        noStep++;
+      } else {
+        noToast.style.display = "block";
+        noToast.textContent = step.msg;
+        noStep = 0;
+      }
+    });
+  </script>
+</body>
+</html>
