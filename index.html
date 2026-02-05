@@ -8,17 +8,20 @@
   <style>
     :root{
       --paper: #f4f1ec;
-      --ink: #111;
-      --muted: rgba(0,0,0,.65);
+      --ink: #0b1020;
+      --muted: rgba(11,16,32,.68);
       --accent: #e11d48;
       --blue: #0284c7;
+      --green: #16a34a;
     }
 
     *{ box-sizing: border-box; }
     html, body { height: 100%; }
     body{
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      /* “pimped” system font stack */
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
       color: var(--ink);
       background: var(--paper);
       overflow-x: hidden;
@@ -28,13 +31,13 @@
     .page{
       position: relative;
       min-height: 100vh;
-      padding: 44px 18px 200px;
+      padding: 44px 18px 240px;
       text-align: center;
 
       background:
         radial-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
         radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(255,255,255,.45), rgba(0,0,0,.04)),
+        linear-gradient(180deg, rgba(255,255,255,.55), rgba(0,0,0,.045)),
         var(--paper);
       background-size: 6px 6px, 11px 11px, 100% 100%, auto;
       background-position: 0 0, 20px 10px, 0 0, 0 0;
@@ -71,9 +74,10 @@
 
     .topline{
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 650;
       letter-spacing: .2px;
       margin-bottom: 10px;
+      color: rgba(0,0,0,.72);
     }
 
     /* Ransom-style headline */
@@ -104,7 +108,6 @@
       border-radius: 12px;
       border: 1px solid rgba(0,0,0,.14);
 
-      /* “paper tile” look */
       background:
         radial-gradient(rgba(255,255,255,.35) 1px, transparent 1px),
         linear-gradient(180deg, rgba(255,255,255,.40), rgba(0,0,0,.06));
@@ -120,12 +123,10 @@
       color: var(--c, #111);
       font-family: var(--ff, Impact, Haettenschweiler, "Arial Black", sans-serif);
 
-      /* cutout chaos */
       transform: translateY(var(--y, 0px)) rotate(var(--r, 0deg));
       text-shadow: 0 2px 0 rgba(255,255,255,.35);
       user-select: none;
 
-      /* fake “cut edges” */
       clip-path: polygon(
         3% 6%, 8% 2%, 16% 4%, 26% 1%, 35% 5%, 46% 2%, 56% 6%, 66% 2%, 76% 6%, 86% 3%, 96% 8%,
         98% 20%, 95% 32%, 98% 46%, 95% 58%, 98% 74%, 92% 92%,
@@ -134,7 +135,6 @@
       );
     }
 
-    /* “ink texture” overlay on each tile */
     .tile::after{
       content:"";
       position:absolute;
@@ -150,7 +150,6 @@
       filter: blur(.3px);
     }
 
-    /* little “tape” strips on some tiles */
     .tile::before{
       content:"";
       position:absolute;
@@ -162,10 +161,9 @@
       background: rgba(255,255,255,.55);
       box-shadow: 0 2px 7px rgba(0,0,0,.14);
       transform: rotate(-10deg);
-      opacity: 0; /* enabled selectively */
+      opacity: 0;
     }
 
-    /* letter-specific chaos (widths/fonts/colors/rotations/offsets) */
     .t1  { --w: 62px; --h: 72px; --fs: 50px; --c:#f97316; --ff: Impact, "Arial Black", sans-serif; --r:-7deg; --y: 2px;  background-color:#ffedd5; }
     .t2  { --w: 52px; --h: 66px; --fs: 46px; --c:#0ea5e9; --ff: "Comic Sans MS","Trebuchet MS",sans-serif; --r: 6deg;  --y:-4px; background-color:#dbeafe; }
     .t3  { --w: 54px; --h: 70px; --fs: 48px; --c:#16a34a; --ff: "Georgia","Times New Roman",serif; --r:-5deg; --y: 3px;  background-color:#dcfce7; }
@@ -179,36 +177,110 @@
 
     .t2::before, .t6::before, .t9::before { opacity: .85; }
 
-    .info{
-      font-size: 18px;
-      margin: 10px 0 18px;
-      color: rgba(0,0,0,.85);
-      font-weight: 600;
-      letter-spacing: .2px;
-    }
-    .info .sep{ margin: 0 10px; color: rgba(0,0,0,.35); }
-
     .card{
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 10px 14px 0;
     }
 
+    .info{
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 18px;
+      margin: 10px 0 18px;
+      color: rgba(0,0,0,.86);
+      font-weight: 750;
+      letter-spacing: .2px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.35);
+      box-shadow: 0 12px 22px rgba(0,0,0,.10);
+    }
+    .pill{
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .sep{ opacity: .35; font-weight: 800; }
+
     .section{
-      margin: 22px 0;
+      margin: 18px auto;
       font-size: 16px;
+      color: rgba(0,0,0,.88);
+      line-height: 1.35;
+    }
+
+    /* Dress Code POP */
+    .dress{
+      max-width: 680px;
+      margin: 20px auto 8px;
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(225,29,72,.20);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(225,29,72,.12), transparent 55%),
+        radial-gradient(circle at 85% 50%, rgba(2,132,199,.10), transparent 55%),
+        rgba(255,255,255,.42);
+      box-shadow: 0 18px 26px rgba(0,0,0,.10);
+    }
+    .badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 850;
+      letter-spacing: .2px;
+      background: rgba(225,29,72,.12);
+      border: 1px solid rgba(225,29,72,.22);
+      color: #9f1239;
+    }
+    .dress p{
+      margin: 10px 0 0;
+      font-size: 16px;
+      font-weight: 650;
       color: rgba(0,0,0,.86);
     }
+    .dress .hint{
+      margin-top: 8px;
+      font-size: 14px;
+      color: rgba(0,0,0,.68);
+    }
+    .hl{
+      padding: 1px 6px;
+      border-radius: 8px;
+      background: rgba(34,197,94,.16);
+      border: 1px solid rgba(34,197,94,.22);
+      font-weight: 900;
+    }
+
+    .section.blue h3{ color: var(--blue); }
     .section h3{
       margin: 0 0 6px;
       font-size: 18px;
       letter-spacing: .2px;
       color: var(--accent);
     }
-    .section.blue h3{ color: var(--blue); }
+
+    .bring{
+      max-width: 680px;
+      margin: 16px auto 0;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(2,132,199,.20);
+      background: rgba(255,255,255,.35);
+      box-shadow: 0 12px 22px rgba(0,0,0,.08);
+    }
+    .bring p{ margin: 8px 0 0; font-weight: 650; }
 
     .buttons{
-      margin-top: 30px;
+      margin-top: 26px;
       display: flex;
       justify-content: center;
       gap: 14px;
@@ -217,17 +289,28 @@
     button{
       border: 0;
       border-radius: 999px;
-      padding: 14px 22px;
+      padding: 14px 26px;
       font-size: 16px;
       cursor: pointer;
-      font-weight: 700;
-      box-shadow: 0 10px 18px rgba(0,0,0,.12);
-      transition: transform .12s ease;
+      font-weight: 850;
+      box-shadow: 0 12px 18px rgba(0,0,0,.12);
+      transition: transform .12s ease, filter .12s ease;
+      will-change: transform;
+      touch-action: manipulation;
     }
     button:active{ transform: translateY(1px); }
 
-    .yes{ background: #22c55e; color: #052e16; }
-    .no { background: #fb7185; color: #3f0713; position: relative; }
+    .yes{
+      background: #22c55e;
+      color: #052e16;
+    }
+    .yes:hover{ filter: brightness(1.02); }
+
+    .no{
+      background: #fb7185;
+      color: #3f0713;
+      position: relative;
+    }
 
     .toast{
       display: none;
@@ -236,6 +319,7 @@
       padding: 12px 14px;
       border-radius: 14px;
       font-size: 14px;
+      font-weight: 650;
     }
     .toast.ok{
       background: rgba(34,197,94,.14);
@@ -246,34 +330,12 @@
       border: 1px solid rgba(251,113,133,.35);
     }
 
-    /* Crowd */
-    .crowd{
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      pointer-events: none;
-      opacity: .95;
-      filter: drop-shadow(0 -10px 22px rgba(0,0,0,.25));
-    }
-    .footerline{
-      position: absolute;
-      left: 0;
-      bottom: 18px;
-      width: 100%;
-      color: #fff;
-      font-weight: 800;
-      letter-spacing: .2px;
-      text-shadow: 0 4px 14px rgba(0,0,0,.45);
-    }
-
     @media (max-width: 860px){
       .person{ width: 150px; top: 86px; }
       .person.left{ left: -56px; }
       .person.right{ right: -56px; }
     }
     @media (max-width: 520px){
-      .tile{ border-radius: 10px; }
       .ransom{ gap: 6px; }
       .info{ font-size: 16px; }
       .person{ width: 120px; top: 96px; opacity: .9; }
@@ -307,33 +369,45 @@
     </div>
 
     <div class="card">
-      <div class="info">
-        <span>21.02.</span><span class="sep">|</span>
-        <span>Leechgasse 24</span><span class="sep">|</span>
-        <span>19:30</span>
+      <div class="info" role="group" aria-label="Party Infos">
+        <span class="pill">📅 <b>21.02.</b></span>
+        <span class="sep">|</span>
+        <span class="pill">📍 <b>Leechgasse 24</b></span>
+        <span class="sep">|</span>
+        <span class="pill">⏰ <b>19:30</b></span>
       </div>
 
-      <div class="section">
-        <h3>Dress Code:</h3>
-        Dress like the first letter of your name
+      <div class="dress" aria-label="Dress Code">
+        <div class="badge">👗 Dress Code</div>
+        <p>
+          Komm verkleidet als den <span class="hl">ersten Buchstaben</span> deines Namens.
+          (Ja, wirklich. Wir wollen Fotos. 😄)
+        </p>
+        <div class="hint">
+          Beispiel: <b>Anna</b> → „A“ (Astronaut, Angel, Alien…) • <b>Max</b> → „M“ (Mario, Minion, Mönch…)
+        </div>
       </div>
 
-      <div class="section blue">
-        <h3>Mitbringst:</h3>
-        Eure Lieblingsgetränke
+      <div class="bring">
+        <div class="badge" style="background: rgba(2,132,199,.12); border-color: rgba(2,132,199,.22); color:#075985;">
+          🥤 Mitbringsl
+        </div>
+        <p>Dein Lieblingsgetränk (und gute Laune) &lt;3</p>
       </div>
 
-      <div class="buttons">
-        <button class="yes" id="yesBtn">✅ Ja, ich komme!</button>
-        <button class="no" id="noBtn">❌ Nein</button>
+      <div class="buttons" aria-label="RSVP Buttons">
+        <button class="yes" id="yesBtn">Ja</button>
+        <button class="no" id="noBtn">Nein</button>
       </div>
 
       <div class="toast ok" id="yesToast"></div>
       <div class="toast warn" id="noToast"></div>
     </div>
 
+  </div>
+
   <script>
-    // ✅ Replace with your real WhatsApp group invite link:
+    // WhatsApp group invite link:
     const WHATSAPP_INVITE = "https://chat.whatsapp.com/EYwZcsDNvkKGJL02rnB4yU?mode=gi_t";
 
     const yesToast = document.getElementById("yesToast");
@@ -341,48 +415,96 @@
     const yesBtn   = document.getElementById("yesBtn");
     const noBtn    = document.getElementById("noBtn");
 
+    function showToast(el, text){
+      el.textContent = text;
+      el.style.display = "block";
+      // auto-hide after a bit (optional)
+      window.clearTimeout(el._t);
+      el._t = window.setTimeout(() => { el.style.display = "none"; }, 4500);
+    }
+
     yesBtn.addEventListener("click", () => {
-      yesToast.style.display = "block";
-      yesToast.textContent = "Yesss 😄 Öffne die WhatsApp-Gruppe…";
+      showToast(yesToast, "Yesss 😄 Öffne die WhatsApp-Gruppe…");
       setTimeout(() => { window.location.href = WHATSAPP_INVITE; }, 450);
     });
 
-    // Playful “No” flow (finite; still lets them say no)
-    const noFlow = [
-      "Bist du sicher? Wir zählen auf dich 😭",
-      "Wirklich wirklich sicher?",
-      "Letzte Chance – wir reservieren dir Kuchen 🍰",
-      "Ok 😢 Wenn du doch kannst: einfach auf „Ja“ drücken."
-    ];
-    let noStep = 0;
+    // NO button: evade 3 times (desktop + phone), then show one confirm popup
+    let evadeCount = 0;
+    const MAX_EVADE = 3;
 
-    noBtn.addEventListener("click", () => {
-      // a bit of dodging (only first 2 times)
-      if (noStep < 2) {
-        const dx = Math.floor((Math.random() * 180) - 90);
-        const dy = Math.floor((Math.random() * 80) - 40);
-        noBtn.style.transform = `translate(${dx}px, ${dy}px)`;
-        setTimeout(() => noBtn.style.transform = "translate(0,0)", 420);
-      }
+    function moveNoButton(){
+      // Keep it within viewport-ish bounds
+      const btnRect = noBtn.getBoundingClientRect();
+      const pad = 12;
 
-      if (noStep < 3) {
-        const ok = window.confirm(noFlow[noStep]);
-        if (!ok) {
-          // user reconsidered
-          yesToast.style.display = "block";
-          yesToast.textContent = "Sehr gut 😄 Drück auf „Ja“ und komm in die Gruppe!";
-          noStep = 0;
-          return;
-        }
-        noStep++;
+      const maxX = Math.max(pad, window.innerWidth  - btnRect.width  - pad);
+      const maxY = Math.max(pad, window.innerHeight - btnRect.height - pad);
+
+      // Random-ish target position in visible area
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
+
+      // Move using fixed positioning so it "jumps away" from finger/cursor
+      noBtn.style.position = "fixed";
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+      noBtn.style.zIndex = 9999;
+      noBtn.style.transition = "left .12s ease, top .12s ease, transform .12s ease";
+      noBtn.style.transform = `rotate(${(Math.random()*10 - 5).toFixed(2)}deg)`;
+
+      // Little feedback toast
+      showToast(noToast, "Nein? 👀 Versuch’s nochmal…");
+    }
+
+    function handleNoAttempt(evt){
+      // Prevent any click from doing normal stuff
+      evt.preventDefault();
+      evt.stopPropagation();
+
+      if (evadeCount < MAX_EVADE){
+        evadeCount++;
+        moveNoButton();
         return;
       }
 
-      // final message
-      noToast.style.display = "block";
-      noToast.textContent = noFlow[3];
-      noStep = 0;
+      // 4th attempt: confirm popup
+      const ok = window.confirm("Bist du dir sicher? 😭");
+      if (!ok){
+        showToast(yesToast, "Wusste ich’s doch 😄 Drück 'Ja' und ab in die Gruppe!");
+        evadeCount = 0;
+
+        // bring button back near the others (optional)
+        noBtn.style.position = "";
+        noBtn.style.left = "";
+        noBtn.style.top = "";
+        noBtn.style.zIndex = "";
+        noBtn.style.transform = "";
+        return;
+      }
+
+      showToast(noToast, "Okaaay 😢 Dann sehen wir uns beim nächsten Mal. (Wir sind trotzdem traurig.)");
+      evadeCount = 0;
+
+      // optionally return the button to its original place after the decision
+      noBtn.style.position = "";
+      noBtn.style.left = "";
+      noBtn.style.top = "";
+      noBtn.style.zIndex = "";
+      noBtn.style.transform = "";
+    }
+
+    // Desktop: evade before click (mouseenter) AND on click
+    noBtn.addEventListener("mouseenter", (e) => {
+      if (evadeCount < MAX_EVADE) {
+        // only evade if they're trying to reach it
+        moveNoButton();
+        evadeCount++;
+      }
     });
+
+    // Click / touch: always intercept
+    noBtn.addEventListener("click", handleNoAttempt, { passive: false });
+    noBtn.addEventListener("touchstart", handleNoAttempt, { passive: false });
   </script>
 </body>
 </html>
