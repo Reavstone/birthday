@@ -3,146 +3,280 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Geburtstag 🎉</title>
+  <title>Einladung – Geburtstag 🎉</title>
 
   <style>
-    :root {
-      --bg: #f4f1ec;
-      --text: #111;
+    :root{
+      --paper: #f4f1ec;
+      --ink: #111;
+      --muted: rgba(0,0,0,.65);
       --accent: #e11d48;
       --blue: #0284c7;
     }
 
-    * { box-sizing: border-box; }
-
-    body {
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
       margin: 0;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
       overflow-x: hidden;
     }
 
-    .page {
+    /* Paper background with subtle texture */
+    .page{
       position: relative;
       min-height: 100vh;
-      padding: 48px 20px 160px;
+      padding: 44px 18px 200px;
       text-align: center;
+
       background:
-        radial-gradient(#00000008 1px, transparent 1px),
-        var(--bg);
-      background-size: 6px 6px;
+        radial-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
+        radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,.45), rgba(0,0,0,.04)),
+        var(--paper);
+      background-size: 6px 6px, 11px 11px, 100% 100%, auto;
+      background-position: 0 0, 20px 10px, 0 0, 0 0;
+    }
+
+    /* Ink / paper “grime” overlay (CSS-only) */
+    .page::before{
+      content:"";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .55;
+      mix-blend-mode: multiply;
+      background:
+        radial-gradient(circle at 10% 12%, rgba(0,0,0,.07), transparent 35%),
+        radial-gradient(circle at 85% 18%, rgba(0,0,0,.05), transparent 35%),
+        radial-gradient(circle at 40% 70%, rgba(0,0,0,.06), transparent 45%),
+        repeating-linear-gradient(0deg, rgba(0,0,0,.012) 0, rgba(0,0,0,.012) 1px, transparent 1px, transparent 5px),
+        repeating-linear-gradient(90deg, rgba(0,0,0,.010) 0, rgba(0,0,0,.010) 1px, transparent 1px, transparent 6px);
+      filter: blur(.2px);
     }
 
     /* Leaning people */
-    .person {
+    .person{
       position: absolute;
-      top: 120px;
-      width: 180px;
+      top: 92px;
+      width: 210px;
       pointer-events: none;
+      opacity: .95;
+      filter: drop-shadow(0 16px 22px rgba(0,0,0,.22));
     }
+    .person.left{ left: -52px; transform: rotate(-7deg); }
+    .person.right{ right: -52px; transform: rotate(7deg); }
 
-    .person.left {
-      left: -40px;
-      transform: rotate(-6deg);
-    }
-
-    .person.right {
-      right: -40px;
-      transform: rotate(6deg);
-    }
-
-    h1.small {
+    .topline{
       font-size: 18px;
       font-weight: 500;
-      margin-bottom: 12px;
+      letter-spacing: .2px;
+      margin-bottom: 10px;
     }
 
-    h2.title {
-      font-size: 56px;
-      line-height: 1;
-      margin: 0 0 24px;
-      font-weight: 900;
-    }
-
-    h2.title span {
-      display: inline-block;
-      padding: 0 4px;
-    }
-
-    .info {
-      font-size: 18px;
-      margin-bottom: 28px;
-    }
-
-    .info span {
-      margin: 0 8px;
-      font-weight: 600;
-    }
-
-    .section {
-      margin: 26px 0;
-    }
-
-    .section h3 {
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
-
-    .section.blue h3 {
-      color: var(--blue);
-    }
-
-    .buttons {
-      margin-top: 36px;
+    /* Ransom-style headline */
+    .ransom-wrap{
       display: flex;
       justify-content: center;
-      gap: 16px;
+      margin: 6px 0 22px;
+      padding: 0 12px;
+    }
+    .ransom{
+      display: flex;
+      gap: 7px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 8px 10px;
+    }
+
+    .tile{
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      width: var(--w, 56px);
+      height: var(--h, 70px);
+
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.14);
+
+      /* “paper tile” look */
+      background:
+        radial-gradient(rgba(255,255,255,.35) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,.40), rgba(0,0,0,.06));
+      background-size: 7px 7px, 100% 100%;
+
+      box-shadow:
+        0 14px 22px rgba(0,0,0,.16),
+        0 2px 0 rgba(255,255,255,.40) inset;
+
+      font-weight: 900;
+      font-size: var(--fs, 46px);
+      line-height: 1;
+      color: var(--c, #111);
+      font-family: var(--ff, Impact, Haettenschweiler, "Arial Black", sans-serif);
+
+      /* cutout chaos */
+      transform: translateY(var(--y, 0px)) rotate(var(--r, 0deg));
+      text-shadow: 0 2px 0 rgba(255,255,255,.35);
+      user-select: none;
+
+      /* fake “cut edges” */
+      clip-path: polygon(
+        3% 6%, 8% 2%, 16% 4%, 26% 1%, 35% 5%, 46% 2%, 56% 6%, 66% 2%, 76% 6%, 86% 3%, 96% 8%,
+        98% 20%, 95% 32%, 98% 46%, 95% 58%, 98% 74%, 92% 92%,
+        80% 97%, 70% 94%, 58% 98%, 48% 95%, 36% 99%, 26% 96%, 18% 98%, 8% 95%, 3% 90%,
+        1% 76%, 4% 64%, 1% 50%, 4% 38%, 2% 24%
+      );
+    }
+
+    /* “ink texture” overlay on each tile */
+    .tile::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius: 12px;
+      pointer-events:none;
+      opacity: .35;
+      mix-blend-mode: multiply;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0,0,0,.12), transparent 42%),
+        radial-gradient(circle at 70% 75%, rgba(0,0,0,.10), transparent 48%),
+        repeating-linear-gradient(30deg, rgba(0,0,0,.020) 0, rgba(0,0,0,.020) 2px, transparent 2px, transparent 7px);
+      filter: blur(.3px);
+    }
+
+    /* little “tape” strips on some tiles */
+    .tile::before{
+      content:"";
+      position:absolute;
+      top: -10px;
+      left: 12px;
+      width: 40px;
+      height: 16px;
+      border-radius: 7px;
+      background: rgba(255,255,255,.55);
+      box-shadow: 0 2px 7px rgba(0,0,0,.14);
+      transform: rotate(-10deg);
+      opacity: 0; /* enabled selectively */
+    }
+
+    /* letter-specific chaos (widths/fonts/colors/rotations/offsets) */
+    .t1  { --w: 62px; --h: 72px; --fs: 50px; --c:#f97316; --ff: Impact, "Arial Black", sans-serif; --r:-7deg; --y: 2px;  background-color:#ffedd5; }
+    .t2  { --w: 52px; --h: 66px; --fs: 46px; --c:#0ea5e9; --ff: "Comic Sans MS","Trebuchet MS",sans-serif; --r: 6deg;  --y:-4px; background-color:#dbeafe; }
+    .t3  { --w: 54px; --h: 70px; --fs: 48px; --c:#16a34a; --ff: "Georgia","Times New Roman",serif; --r:-5deg; --y: 3px;  background-color:#dcfce7; }
+    .t4  { --w: 50px; --h: 64px; --fs: 44px; --c:#ef4444; --ff: "Courier New",Courier,monospace; --r: 7deg;  --y:-2px; background-color:#fee2e2; }
+    .t5  { --w: 48px; --h: 68px; --fs: 44px; --c:#a16207; --ff: "Trebuchet MS",Arial,sans-serif; --r:-6deg; --y: 1px;  background-color:#fef9c3; }
+    .t6  { --w: 46px; --h: 72px; --fs: 48px; --c:#a855f7; --ff: Impact,"Arial Black",sans-serif; --r: 4deg;  --y:-6px; background-color:#fae8ff; }
+    .t7  { --w: 46px; --h: 64px; --fs: 42px; --c:#0891b2; --ff: "Times New Roman",Times,serif; --r:-7deg; --y: 4px;  background-color:#cffafe; }
+    .t8  { --w: 44px; --h: 70px; --fs: 46px; --c:#7c3aed; --ff: "Courier New",monospace; --r: 8deg;  --y:-2px; background-color:#ede9fe; }
+    .t9  { --w: 50px; --h: 66px; --fs: 44px; --c:#db2777; --ff: "Georgia",serif; --r:-4deg; --y: 5px;  background-color:#ffe4e6; }
+    .t10 { --w: 56px; --h: 74px; --fs: 50px; --c:#0f172a; --ff: Impact,"Arial Black",sans-serif; --r: 6deg;  --y:-2px; background-color:#e2e8f0; }
+
+    .t2::before, .t6::before, .t9::before { opacity: .85; }
+
+    .info{
+      font-size: 18px;
+      margin: 10px 0 18px;
+      color: rgba(0,0,0,.85);
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
+    .info .sep{ margin: 0 10px; color: rgba(0,0,0,.35); }
+
+    .card{
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 10px 14px 0;
+    }
+
+    .section{
+      margin: 22px 0;
+      font-size: 16px;
+      color: rgba(0,0,0,.86);
+    }
+    .section h3{
+      margin: 0 0 6px;
+      font-size: 18px;
+      letter-spacing: .2px;
+      color: var(--accent);
+    }
+    .section.blue h3{ color: var(--blue); }
+
+    .buttons{
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
       flex-wrap: wrap;
     }
-
-    button {
+    button{
+      border: 0;
+      border-radius: 999px;
       padding: 14px 22px;
       font-size: 16px;
-      border-radius: 999px;
-      border: none;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
+      box-shadow: 0 10px 18px rgba(0,0,0,.12);
+      transition: transform .12s ease;
     }
+    button:active{ transform: translateY(1px); }
 
-    .yes {
-      background: #22c55e;
-      color: #052e16;
+    .yes{ background: #22c55e; color: #052e16; }
+    .no { background: #fb7185; color: #3f0713; position: relative; }
+
+    .toast{
+      display: none;
+      max-width: 720px;
+      margin: 16px auto 0;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 14px;
     }
-
-    .no {
-      background: #fb7185;
-      color: #3f0713;
+    .toast.ok{
+      background: rgba(34,197,94,.14);
+      border: 1px solid rgba(34,197,94,.35);
+    }
+    .toast.warn{
+      background: rgba(251,113,133,.16);
+      border: 1px solid rgba(251,113,133,.35);
     }
 
     /* Crowd */
-    .crowd {
+    .crowd{
       position: absolute;
-      bottom: 0;
       left: 0;
+      bottom: 0;
       width: 100%;
       pointer-events: none;
+      opacity: .95;
+      filter: drop-shadow(0 -10px 22px rgba(0,0,0,.25));
     }
-
-    footer {
+    .footerline{
       position: absolute;
-      bottom: 18px;
       left: 0;
+      bottom: 18px;
       width: 100%;
-      text-align: center;
-      font-size: 16px;
-      font-weight: 600;
       color: #fff;
+      font-weight: 800;
+      letter-spacing: .2px;
+      text-shadow: 0 4px 14px rgba(0,0,0,.45);
     }
 
-    @media (max-width: 720px) {
-      .person { width: 120px; }
-      h2.title { font-size: 42px; }
+    @media (max-width: 860px){
+      .person{ width: 150px; top: 86px; }
+      .person.left{ left: -56px; }
+      .person.right{ right: -56px; }
+    }
+    @media (max-width: 520px){
+      .tile{ border-radius: 10px; }
+      .ransom{ gap: 6px; }
+      .info{ font-size: 16px; }
+      .person{ width: 120px; top: 96px; opacity: .9; }
     }
   </style>
 </head>
@@ -150,42 +284,110 @@
 <body>
   <div class="page">
 
-    <!-- Leaning people -->
-    <img src="assets/left-person.png" class="person left" alt="">
-    <img src="assets/right-person.png" class="person right" alt="">
+    <!-- placeholder “people” leaning in -->
+    <img class="person left"  src="assets/left-person.svg"  alt="">
+    <img class="person right" src="assets/right-person.svg" alt="">
 
-    <h1 class="small">Einladung zu unserem</h1>
+    <div class="topline">Einladung zu unserem</div>
 
-    <h2 class="title">
-      <span style="color:#f97316;">Ge</span>
-      <span style="color:#0ea5e9;">bur</span>
-      <span style="color:#22c55e;">ts</span>
-      <span style="color:#ef4444;">tag</span>
-    </h2>
-
-    <div class="info">
-      <span>21.02.</span> | <span>Leechgasse 24</span> | <span>19:30</span>
+    <!-- ransom/cutout headline -->
+    <div class="ransom-wrap" aria-label="Geburtstag">
+      <div class="ransom">
+        <span class="tile t1">G</span>
+        <span class="tile t2">e</span>
+        <span class="tile t3">b</span>
+        <span class="tile t4">u</span>
+        <span class="tile t5">r</span>
+        <span class="tile t6">t</span>
+        <span class="tile t7">s</span>
+        <span class="tile t8">t</span>
+        <span class="tile t9">a</span>
+        <span class="tile t10">g</span>
+      </div>
     </div>
 
-    <div class="section">
-      <h3>Dress Code:</h3>
-      Dress like the first letter of your name
+    <div class="card">
+      <div class="info">
+        <span>21.02.</span><span class="sep">|</span>
+        <span>Leechgasse 24</span><span class="sep">|</span>
+        <span>19:30</span>
+      </div>
+
+      <div class="section">
+        <h3>Dress Code:</h3>
+        Dress like the first letter of your name
+      </div>
+
+      <div class="section blue">
+        <h3>Mitbringst:</h3>
+        Eure Lieblingsgetränke
+      </div>
+
+      <div class="buttons">
+        <button class="yes" id="yesBtn">✅ Ja, ich komme!</button>
+        <button class="no" id="noBtn">❌ Nein</button>
+      </div>
+
+      <div class="toast ok" id="yesToast"></div>
+      <div class="toast warn" id="noToast"></div>
     </div>
 
-    <div class="section blue">
-      <h3>Mitbringst:</h3>
-      Eure Lieblingsgetränke
-    </div>
-
-    <div class="buttons">
-      <button class="yes">✅ Ja, ich komme!</button>
-      <button class="no">❌ Nein</button>
-    </div>
-
-    <!-- Crowd -->
-    <img src="assets/crowd.png" class="crowd" alt="">
-    <footer>+1 natürlich willkommen!</footer>
-
+    <!-- crowd silhouette -->
+    <img class="crowd" src="assets/crowd.svg" alt="">
+    <div class="footerline">+1 natürlich willkommen!</div>
   </div>
+
+  <script>
+    // ✅ Replace with your real WhatsApp group invite link:
+    const WHATSAPP_INVITE = "WHATSAPP_INVITE_LINK_HERE";
+
+    const yesToast = document.getElementById("yesToast");
+    const noToast  = document.getElementById("noToast");
+    const yesBtn   = document.getElementById("yesBtn");
+    const noBtn    = document.getElementById("noBtn");
+
+    yesBtn.addEventListener("click", () => {
+      yesToast.style.display = "block";
+      yesToast.textContent = "Yesss 😄 Öffne die WhatsApp-Gruppe…";
+      setTimeout(() => { window.location.href = WHATSAPP_INVITE; }, 450);
+    });
+
+    // Playful “No” flow (finite; still lets them say no)
+    const noFlow = [
+      "Bist du sicher? Wir zählen auf dich 😭",
+      "Wirklich wirklich sicher?",
+      "Letzte Chance – wir reservieren dir Kuchen 🍰",
+      "Ok 😢 Wenn du doch kannst: einfach auf „Ja“ drücken."
+    ];
+    let noStep = 0;
+
+    noBtn.addEventListener("click", () => {
+      // a bit of dodging (only first 2 times)
+      if (noStep < 2) {
+        const dx = Math.floor((Math.random() * 180) - 90);
+        const dy = Math.floor((Math.random() * 80) - 40);
+        noBtn.style.transform = `translate(${dx}px, ${dy}px)`;
+        setTimeout(() => noBtn.style.transform = "translate(0,0)", 420);
+      }
+
+      if (noStep < 3) {
+        const ok = window.confirm(noFlow[noStep]);
+        if (!ok) {
+          // user reconsidered
+          yesToast.style.display = "block";
+          yesToast.textContent = "Sehr gut 😄 Drück auf „Ja“ und komm in die Gruppe!";
+          noStep = 0;
+          return;
+        }
+        noStep++;
+        return;
+      }
+
+      // final message
+      noToast.style.display = "block";
+      noToast.textContent = noFlow[3];
+      noStep = 0;
+    });
+  </script>
 </body>
 </html>
