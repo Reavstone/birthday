@@ -297,22 +297,6 @@
       border: 1px solid rgba(225,29,72,.18);
       color: #9f1239;
     }
-    .dress::after{
-      content:"";
-      position:absolute;
-      right: 18px;
-      top: 16px;
-      width: 54px;
-      height: 54px;
-      border-radius: 14px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(225,29,72,.25), transparent 55%),
-        radial-gradient(circle at 70% 70%, rgba(2,132,199,.20), transparent 60%),
-        rgba(255,255,255,.45);
-      border: 1px solid rgba(0,0,0,.08);
-      transform: rotate(7deg);
-      opacity: .9;
-    }
 
     /* bring specific */
     .bring{ --rot: 0.7deg; border-color: rgba(2,132,199,.18); margin-top: 16px; }
@@ -366,6 +350,81 @@
       .scrap{ text-align: left; }
       .dress::after{ display:none; }
     }
+
+    /* --- Stickers (scrapbook vibe) --- */
+    .stickers{
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+    
+    .sticker{
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      box-shadow: 0 18px 26px rgba(0,0,0,.12);
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.75);
+      transform: rotate(var(--sr, 8deg));
+      overflow: hidden;
+    }
+    
+    .sticker::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity: .9;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.80), transparent 55%),
+        radial-gradient(circle at 70% 75%, rgba(0,0,0,.08), transparent 60%),
+        repeating-linear-gradient(35deg, rgba(0,0,0,.02) 0, rgba(0,0,0,.02) 3px, transparent 3px, transparent 10px);
+    }
+    
+    /* Sticker variants */
+    .sticker.star{
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), transparent 55%),
+        linear-gradient(135deg, rgba(250,204,21,.55), rgba(251,146,60,.35));
+    }
+    .sticker.heart{
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), transparent 55%),
+        linear-gradient(135deg, rgba(251,113,133,.45), rgba(167,139,250,.35));
+    }
+    
+    /* Icon inside the sticker */
+    .sticker span{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      font-size: 26px;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,.18));
+    }
+    
+    /* Placement per card */
+    .dress .sticker.star{ top: -14px; right: 18px; --sr: 10deg; }
+    .bring .sticker.heart{ bottom: -14px; left: 18px; --sr: -8deg; }
+    
+    /* Optional: corner washi tape */
+    .tape{
+      position:absolute;
+      width: 96px;
+      height: 22px;
+      border-radius: 10px;
+      background:
+        repeating-linear-gradient(45deg, rgba(255,255,255,.60) 0, rgba(255,255,255,.60) 8px, rgba(0,0,0,.04) 8px, rgba(0,0,0,.04) 16px),
+        rgba(255,255,255,.55);
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 14px 18px rgba(0,0,0,.10);
+      opacity: .95;
+    }
+    
+    .dress .tape{ top: -10px; left: 22px; transform: rotate(-7deg); }
+    .bring .tape{ top: -10px; right: 22px; transform: rotate(7deg); }
+
   </style>
 </head>
 
@@ -410,6 +469,10 @@
       </div>
 
       <div class="scrap dress" aria-label="Dress Code">
+        <div class="stickers">
+          <div class="tape"></div>
+          <div class="sticker star"><span>✨</span></div>
+        </div>
         <div class="title">👗 Dress Code</div>
         <p>
           Dress like the first letter of your name!
@@ -417,6 +480,10 @@
       </div>
 
       <div class="scrap bring" aria-label="Mitbringsl">
+        <div class="stickers">
+          <div class="tape"></div>
+          <div class="sticker heart"><span>💗</span></div>
+        </div>
         <div class="title">🥤 Mitbringsl</div>
         <p>Dein Lieblingsgetränk (und gute Laune) &lt;3</p>
       </div>
