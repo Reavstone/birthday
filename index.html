@@ -210,26 +210,28 @@
     .scrap{
       position: relative;
       max-width: 720px;
-      margin: 18px auto 0;
-      text-align: left;
-
-      padding: 18px 16px 16px;
+      margin: 22px auto 0;
+    
+      /* CENTER CONTENT */
+      text-align: center;
+    
+      padding: 22px 18px 20px;
+    
       background:
-        radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.42));
-      background-size: 9px 9px, 100% 100%;
-
-      border: 1px solid rgba(0,0,0,.10);
-      box-shadow: 0 22px 30px rgba(0,0,0,.10);
-      transform: rotate(var(--rot, -0.7deg));
-      clip-path: polygon(
-        2% 6%, 8% 3%, 15% 5%, 24% 2%, 33% 5%, 41% 3%, 50% 6%, 58% 3%, 66% 5%, 74% 2%, 83% 5%, 92% 3%, 98% 7%,
-        97% 20%, 99% 32%, 97% 46%, 99% 58%, 97% 74%, 95% 92%,
-        82% 98%, 74% 95%, 62% 98%, 52% 95%, 40% 99%, 30% 96%, 20% 98%, 10% 95%, 3% 92%,
-        2% 78%, 4% 66%, 2% 52%, 4% 40%, 2% 26%
-      );
-      border-radius: 18px; /* helps on browsers that ignore clip-path edges a bit */
+        linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.55)),
+        radial-gradient(rgba(0,0,0,.04) 1px, transparent 1px);
+      background-size: 100% 100%, 10px 10px;
+    
+      border-radius: 22px;
+      border: 1px solid rgba(0,0,0,.12);
+    
+      box-shadow:
+        0 28px 36px rgba(0,0,0,.12),
+        0 2px 0 rgba(255,255,255,.7) inset;
+    
+      transform: rotate(var(--rot, -0.6deg));
     }
+
 
     /* washi tape */
     .scrap::before{
@@ -253,20 +255,25 @@
     .scrap .title{
       display: inline-block;
       font-weight: 950;
-      letter-spacing: .2px;
-      padding: 4px 10px;
+      letter-spacing: .3px;
+      padding: 6px 14px;
       border-radius: 999px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       font-size: 16px;
+    
+      background: rgba(255,255,255,.85);
+      border: 2px dashed rgba(0,0,0,.18);
+    
       font-family: ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
     }
 
     .scrap p{
-      margin: 8px 0 0;
+      margin: 10px 0 0;
       font-size: 16px;
       font-weight: 650;
-      line-height: 1.35;
+      line-height: 1.4;
       color: rgba(0,0,0,.86);
+      text-align: center;
     }
 
     .hint{
@@ -389,7 +396,15 @@
       <div class="info" role="group" aria-label="Party Infos">
         <span class="pill">📅 <b>21.02.</b></span>
         <span class="sep">|</span>
-        <span class="pill">📍 <b>Leechgasse 24</b></span>
+        <a
+          class="pill"
+          href="https://www.google.com/maps/search/?api=1&query=Leechgasse+24"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="text-decoration:none; color:inherit;"
+        >
+          📍 <b>Leechgasse 24</b>
+        </a>
         <span class="sep">|</span>
         <span class="pill">⏰ <b>19:30</b></span>
       </div>
@@ -471,10 +486,12 @@
       const ok = window.confirm("Bist du dir sicher? 😭");
       evadeCount = 0;
       resetNoButton();
+      
+      if (ok) {
+        // exit the website
+        window.location.href = "about:blank";
+      }
 
-      // If they hit cancel -> nothing else happens; if OK -> also nothing else happens.
-      // (You can add optional behavior here, but you asked to remove notifications.)
-      void ok;
     }
 
     // Desktop: ONLY on real click
