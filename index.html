@@ -60,14 +60,24 @@
     /* Leaning people */
     .person{
       position: absolute;
-      top: 92px;
-      width: 210px;
+      top: 120px;                  /* lower so it frames the cards */
+      width: 170px;                /* less dominant */
+      max-width: 28vw;             /* responsive scaling */
+      height: auto;
       pointer-events: none;
       opacity: .95;
-      filter: drop-shadow(0 16px 22px rgba(0,0,0,.22));
     }
-    .person.left{ left: -52px; transform: rotate(-7deg); }
-    .person.right{ right: -52px; transform: rotate(7deg); }
+
+    .person.left{
+      left: -28px;
+      transform: rotate(7deg);      /* tilt INwards */
+      transform-origin: 100% 50%;
+    }
+    .person.right{
+      right: -28px;
+      transform: rotate(-7deg);     /* tilt INwards */
+      transform-origin: 0% 50%;
+    }
 
     .topline{
       font-size: 18px;
@@ -338,10 +348,15 @@
       position: relative;
     }
 
-    @media (max-width: 860px){
-      .person{ width: 150px; top: 86px; }
-      .person.left{ left: -56px; }
-      .person.right{ right: -56px; }
+    @media (max-width: 520px){
+      .person{
+        top: 54px;
+        width: 92px;        /* small enough for phones */
+        max-width: 22vw;
+        opacity: .92;
+      }
+      .person.left{ left: 6px; }
+      .person.right{ right: 6px; }
     }
     @media (max-width: 520px){
       .ransom{ gap: 6px; }
