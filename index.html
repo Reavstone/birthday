@@ -489,14 +489,97 @@
       text-align: center;
     }
 
+    /* --- Costume gallery (horizontal scroll) --- */
+    .gallery-wrap{
+      margin: 34px auto 18px;
+      max-width: 900px;
+      text-align: center;
+    }
+    
+    .gallery-title{
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      color: rgba(0,0,0,.88);
+    }
+    
+    .gallery-sub{
+      margin-top: 4px;
+      font-size: 12px;
+      font-weight: 650;
+      color: rgba(0,0,0,.55);
+    }
+    
+    .gallery{
+      margin-top: 14px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(220px, 1fr);
+      gap: 14px;
+    
+      padding: 10px 12px 14px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    
+      border-radius: 18px;
+      background: rgba(255,255,255,.35);
+      border: 1px solid rgba(0,0,0,.10);
+      box-shadow: 0 14px 22px rgba(0,0,0,.08);
+    }
+    
+    /* hide scrollbar (nice-to-have) */
+    .gallery::-webkit-scrollbar{ height: 10px; }
+    .gallery::-webkit-scrollbar-thumb{
+      background: rgba(0,0,0,.18);
+      border-radius: 999px;
+    }
+    .gallery::-webkit-scrollbar-track{ background: transparent; }
+    
+    .shot{
+      margin: 0;
+      scroll-snap-align: center;
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(0,0,0,.10);
+      box-shadow: 0 18px 26px rgba(0,0,0,.12);
+    }
+    
+    .shot img{
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .shot figcaption{
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(0,0,0,.10);
+      backdrop-filter: blur(6px);
+    }
+    
+    @media (max-width: 520px){
+      .gallery{ grid-auto-columns: 78%; }
+      .shot img{ height: 220px; }
+    }
+    
+
   </style>
 </head>
 
 <body>
   <div class="page">
-
-    <img class="person left"  src="assets/left-person.PNG"  alt="">
-    <img class="person right" src="assets/right-person.PNG" alt="">
 
     <div class="topline">Einladung zu unserem</div>
 
@@ -576,6 +659,30 @@
         Wir freuen uns auf dein Kommen!<br>
         Jakob &amp; Max
       </div>
+      
+      <div class="gallery" role="list">
+        <figure class="shot" role="listitem">
+          <img src="assets/costumes/01.jpg" alt="Kostüm Inspiration 1" loading="lazy">
+          <figcaption>✨</figcaption>
+        </figure>
+    
+        <figure class="shot" role="listitem">
+          <img src="assets/costumes/02.jpg" alt="Kostüm Inspiration 2" loading="lazy">
+          <figcaption>🔥</figcaption>
+        </figure>
+    
+        <figure class="shot" role="listitem">
+          <img src="assets/costumes/03.jpg" alt="Kostüm Inspiration 3" loading="lazy">
+          <figcaption>😂</figcaption>
+        </figure>
+    
+        <figure class="shot" role="listitem">
+          <img src="assets/costumes/04.jpg" alt="Kostüm Inspiration 4" loading="lazy">
+          <figcaption>💅</figcaption>
+        </figure>
+      </div>
+    </div>
+
     </div>
 
   </div>
