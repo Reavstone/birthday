@@ -351,6 +351,19 @@
       .dress::after{ display:none; }
     }
 
+    /* Plus One card */
+    .plusone{
+      --rot: -0.4deg;
+      border-color: rgba(34,197,94,.22);
+    }
+    
+    .plusone .title{
+      background: rgba(34,197,94,.14);
+      border: 1px solid rgba(34,197,94,.22);
+      color: #166534;
+    }
+
+
     /* --- Stickers (scrapbook vibe) --- */
     .stickers{
       position: absolute;
@@ -501,10 +514,19 @@
       <div class="scrap bring" aria-label="Mitbringsel">
         <div class="stickers">
           <div class="tape"></div>
-          <div class="sticker heart"><span>💗</span></div>
         </div>
         <div class="title">🥤 Mitbringsel</div>
         <p>Dein Lieblingsgetränk (und gute Laune) &lt;3</p>
+      </div>
+
+      <div class="scrap plusone" aria-label="Plus One">
+        <div class="stickers">
+          <div class="tape"></div>
+          <div class="sticker heart"><span>💗</span></div>
+        </div>
+      
+        <div class="title">➕ Plus 1</div>
+        <p>Natürlich willkommen – bring gerne jemanden mit!</p>
       </div>
 
       <div class="question">Bist du dabei?</div>
