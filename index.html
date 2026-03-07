@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Geburtstagsfeier</title>
+  <style>
+    :root{
+      --bg1:#fff7fb;
+      --bg2:#f7fbff;
+      --paper:rgba(255,255,255,.72);
+      --paper-strong:rgba(255,255,255,.86);
+      --ink:#1f1a2e;
+      --muted:#5d5770;
+      --line:rgba(64,47,95,.16);
+      --pink:#ff5fa2;
+      --pink-soft:#ffd3e5;
+      --violet:#8b5cf6;
+      --violet-soft:#e8ddff;
+      --blue:#55b6ff;
+      --blue-soft:#d8efff;
+      --gold:#ffd76a;
+      --mint:#98ebcf;
+      --shadow:0 22px 60px rgba(72,40,110,.14);
+    }
+
+    *{box-sizing:border-box;}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, #ffe4f1 0, transparent 34%),
+        radial-gradient(circle at top right, #dff3ff 0, transparent 30%),
+        radial-gradient(circle at 20% 80%, #efe5ff 0, transparent 28%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    .page{
+      position:relative;
+      width:min(94vw, 860px);
+      min-height:calc(100vh - 36px);
+      margin:18px auto;
+      padding:28px 20px 36px;
+      border-radius:36px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.68), rgba(255,255,255,.58)),
+        radial-gradient(rgba(90,70,130,.04) 1px, transparent 1px);
+      background-size:100% 100%, 10px 10px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.6);
+      backdrop-filter:blur(12px);
+    }
+
+    .page::before,
+    .page::after{
+      content:"";
+      position:absolute;
+      border-radius:50%;
+      filter:blur(10px);
+      opacity:.45;
+      pointer-events:none;
+    }
+    .page::before{
+      width:220px;height:220px;
+      left:-60px;top:240px;
+      background:radial-gradient(circle, rgba(255,95,162,.22), transparent 70%);
+    }
+    .page::after{
+      width:240px;height:240px;
+      right:-70px;top:90px;
+      background:radial-gradient(circle, rgba(85,182,255,.22), transparent 70%);
+    }
+
+    .decor{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .hero{
+      position:relative;
+      z-index:1;
+      padding-top:130px;
+      text-align:center;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.7);
+      border:1px solid rgba(64,47,95,.10);
+      box-shadow:0 10px 25px rgba(72,40,110,.08);
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+
+    h1{
+      margin:18px 0 8px;
+      font-family: "Baloo 2", "Trebuchet MS", cursive, sans-serif;
+      font-size:clamp(2.9rem, 8vw, 5.4rem);
+      line-height:.95;
+      letter-spacing:.01em;
+    }
+
+    .gradient-text{
+      background:linear-gradient(135deg, #ff4f97, #8b5cf6 52%, #3aa8ff);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow:0 10px 28px rgba(139,92,246,.15);
+    }
+
+    .subline{
+      margin:0 auto;
+      max-width:640px;
+      font-size:clamp(1rem, 2.2vw, 1.3rem);
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .hosts{
+      display:inline-flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:8px;
+      margin-top:14px;
+    }
+
+    .host-pill{
+      padding:9px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(64,47,95,.08);
+      font-weight:800;
+      color:#4a3f67;
+      box-shadow:0 8px 18px rgba(72,40,110,.08);
+    }
+
+    .chips{
+      position:relative;
+      z-index:1;
+      margin:28px auto 18px;
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .chip{
+      min-width:140px;
+      padding:14px 18px;
+      border-radius:999px;
+      background:var(--paper-strong);
+      border:1px solid var(--line);
+      box-shadow:0 14px 30px rgba(72,40,110,.10);
+      text-align:center;
+    }
+
+    .chip-label{
+      display:block;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--muted);
+      font-weight:800;
+      margin-bottom:4px;
+    }
+
+    .chip strong{
+      font-size:1.08rem;
+      letter-spacing:.01em;
+    }
+
+    .content{
+      position:relative;
+      z-index:1;
+      max-width:720px;
+      margin:12px auto 0;
+    }
+
+    .card{
+      position:relative;
+      margin:18px 0;
+      padding:26px 24px 24px;
+      border-radius:28px;
+      background:var(--paper);
+      border:1px solid var(--line);
+      box-shadow:0 18px 36px rgba(72,40,110,.10);
+      backdrop-filter:blur(8px);
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,.42), transparent 48%);
+      pointer-events:none;
+    }
+
+    .card-header{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+    }
+
+    .icon{
+      width:48px;height:48px;
+      flex:0 0 auto;
+      display:grid;
+      place-items:center;
+      border-radius:16px;
+      font-size:22px;
+      box-shadow:0 10px 24px rgba(72,40,110,.10);
+    }
+
+    .card h2{
+      margin:0;
+      font-size:1.35rem;
+      line-height:1.1;
+    }
+
+    .card p{
+      margin:0;
+      font-size:1.08rem;
+      line-height:1.55;
+      color:#342d46;
+      font-weight:600;
+    }
+
+    .note{
+      margin-top:10px;
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:12px;
+      background:rgba(255,255,255,.66);
+      border:1px solid rgba(64,47,95,.08);
+      color:var(--muted);
+      font-size:.95rem;
+      font-weight:700;
+    }
+
+    .bring .icon{background:linear-gradient(135deg, var(--blue-soft), #f5fbff);}
+    .bring .accent{color:#1f79bc;}
+
+    .plusone .icon{background:linear-gradient(135deg, var(--violet-soft), #faf7ff);}
+    .plusone .accent{color:#6b46dd;}
+
+    .rsvp{
+      position:relative;
+      z-index:1;
+      margin-top:28px;
+      text-align:center;
+    }
+
+    .question{
+      font-family:"Baloo 2", "Trebuchet MS", cursive, sans-serif;
+      font-size:clamp(2rem, 4.8vw, 3.4rem);
+      margin:0 0 16px;
+      color:#362a52;
+    }
+
+    .buttons{
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+      min-height:88px;
+      position:relative;
+    }
+
+    button{
+      border:0;
+      border-radius:999px;
+      padding:15px 28px;
+      min-width:104px;
+      font:inherit;
+      font-weight:900;
+      font-size:1rem;
+      cursor:pointer;
+      box-shadow:0 14px 28px rgba(72,40,110,.16);
+      transition:transform .14s ease, filter .14s ease;
+    }
+    button:hover{transform:translateY(-1px); filter:brightness(1.02);}
+    button:active{transform:translateY(1px);}
+
+    .yes{
+      color:#fff;
+      background:linear-gradient(135deg, #ff5fa2, #8b5cf6);
+    }
+
+    .no{
+      color:#4b3a68;
+      background:linear-gradient(135deg, #ffffff, #f2ebff);
+      border:1px solid rgba(64,47,95,.10);
+      position:relative;
+    }
+
+    .signatures{
+      position:relative;
+      z-index:1;
+      margin-top:34px;
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .sig{
+      width:130px;
+      height:130px;
+      border-radius:50%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:12px;
+      background:var(--paper-strong);
+      border:1px solid var(--line);
+      box-shadow:0 16px 32px rgba(72,40,110,.10);
+    }
+
+    .sig .name{
+      font-family:"Baloo 2", "Trebuchet MS", cursive, sans-serif;
+      font-size:1.5rem;
+      line-height:1;
+      margin-bottom:8px;
+    }
+
+    .sig .role{
+      font-size:.92rem;
+      color:var(--muted);
+      font-weight:800;
+    }
+
+    .footer-note{
+      margin-top:18px;
+      text-align:center;
+      color:var(--muted);
+      font-weight:700;
+      font-size:.98rem;
+    }
+
+    @media (max-width:640px){
+      .page{padding:20px 14px 26px; border-radius:24px;}
+      .hero{padding-top:112px;}
+      .card{padding:22px 18px 20px;}
+      .card-header{align-items:flex-start;}
+      .chip{min-width:unset; width:100%; max-width:320px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <svg class="decor" viewBox="0 0 860 320" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="stringGlow" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#8b5cf6" stop-opacity=".35"/>
+          <stop offset="100%" stop-color="#55b6ff" stop-opacity=".2"/>
+        </linearGradient>
+        <radialGradient id="ballPink" cx="35%" cy="30%">
+          <stop offset="0%" stop-color="#fff9ff"/>
+          <stop offset="55%" stop-color="#ffe1ef"/>
+          <stop offset="100%" stop-color="#ff8fbc"/>
+        </radialGradient>
+        <radialGradient id="ballBlue" cx="35%" cy="30%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="55%" stop-color="#e5f6ff"/>
+          <stop offset="100%" stop-color="#75c8ff"/>
+        </radialGradient>
+      </defs>
+
+      <path d="M-30 168 C 90 146, 170 118, 258 40" fill="none" stroke="url(#stringGlow)" stroke-width="5" stroke-linecap="round"/>
+      <path d="M252 44 C 380 108, 575 158, 888 150" fill="none" stroke="url(#stringGlow)" stroke-width="5" stroke-linecap="round"/>
+
+      <g>
+        <circle cx="14" cy="170" r="6" fill="#ffd76a"/>
+        <circle cx="52" cy="160" r="6" fill="#ff9dc5"/>
+        <circle cx="96" cy="149" r="6" fill="#9fe4ff"/>
+        <circle cx="140" cy="132" r="6" fill="#c6a7ff"/>
+        <circle cx="182" cy="110" r="6" fill="#ffd76a"/>
+        <circle cx="220" cy="80" r="6" fill="#98ebcf"/>
+        <circle cx="292" cy="74" r="6" fill="#ff9dc5"/>
+        <circle cx="336" cy="92" r="6" fill="#9fe4ff"/>
+        <circle cx="382" cy="110" r="6" fill="#ffd76a"/>
+        <circle cx="432" cy="124" r="6" fill="#c6a7ff"/>
+        <circle cx="482" cy="136" r="6" fill="#98ebcf"/>
+        <circle cx="534" cy="144" r="6" fill="#ff9dc5"/>
+        <circle cx="590" cy="149" r="6" fill="#9fe4ff"/>
+        <circle cx="646" cy="152" r="6" fill="#ffd76a"/>
+        <circle cx="706" cy="153" r="6" fill="#c6a7ff"/>
+        <circle cx="766" cy="152" r="6" fill="#98ebcf"/>
+        <circle cx="820" cy="150" r="6" fill="#ff9dc5"/>
+      </g>
+
+      <path d="M430 0 L430 54" fill="none" stroke="#cbbce8" stroke-width="4" stroke-linecap="round"/>
+
+      <g transform="translate(398,48) rotate(-6)">
+        <circle cx="0" cy="42" r="54" fill="url(#ballPink)"/>
+        <circle cx="0" cy="42" r="54" fill="none" stroke="rgba(74,57,112,.16)" stroke-width="2"/>
+        <path d="M-42 20 C -16 10, 16 10, 40 20" fill="none" stroke="rgba(74,57,112,.28)" stroke-width="2.2"/>
+        <path d="M-48 40 C -18 30, 18 30, 48 40" fill="none" stroke="rgba(74,57,112,.28)" stroke-width="2.2"/>
+        <path d="M-42 60 C -14 54, 14 54, 42 62" fill="none" stroke="rgba(74,57,112,.28)" stroke-width="2.2"/>
+        <path d="M-18 -2 C -24 22, -22 48, -14 86" fill="none" stroke="rgba(74,57,112,.24)" stroke-width="2.2"/>
+        <path d="M8 -8 C 0 20, 0 48, 8 90" fill="none" stroke="rgba(74,57,112,.24)" stroke-width="2.2"/>
+        <path d="M28 2 C 22 26, 22 48, 28 80" fill="none" stroke="rgba(74,57,112,.24)" stroke-width="2.2"/>
+      </g>
+
+      <g transform="translate(488,34) rotate(8)">
+        <circle cx="0" cy="42" r="48" fill="url(#ballBlue)"/>
+        <circle cx="0" cy="42" r="48" fill="none" stroke="rgba(74,57,112,.16)" stroke-width="2"/>
+        <path d="M-36 24 C -14 14, 14 14, 36 24" fill="none" stroke="rgba(74,57,112,.26)" stroke-width="2"/>
+        <path d="M-40 42 C -14 34, 14 34, 40 44" fill="none" stroke="rgba(74,57,112,.26)" stroke-width="2"/>
+        <path d="M-34 60 C -10 54, 10 54, 34 62" fill="none" stroke="rgba(74,57,112,.26)" stroke-width="2"/>
+        <path d="M-12 0 C -16 24, -16 48, -10 78" fill="none" stroke="rgba(74,57,112,.24)" stroke-width="2"/>
+        <path d="M10 0 C 6 20, 6 48, 14 80" fill="none" stroke="rgba(74,57,112,.24)" stroke-width="2"/>
+      </g>
+    </svg>
+
+    <section class="hero">
+      <div class="eyebrow">✨ Save the date ✨</div>
+      <h1><span class="gradient-text">Geburtstagsfeier</span></h1>
+      <p class="subline">Ein Abend mit Drinks, guter Stimmung und ganz viel Zeit zum Feiern.</p>
+      <div class="hosts" aria-label="Gastgeberinnen und Gastgeber">
+        <span class="host-pill">Kathi</span>
+        <span class="host-pill">Michi</span>
+        <span class="host-pill">Nina</span>
+      </div>
+    </section>
+
+    <div class="chips" role="group" aria-label="Event Infos">
+      <div class="chip">
+        <span class="chip-label">Datum</span>
+        <strong>28.03.2026</strong>
+      </div>
+      <div class="chip">
+        <span class="chip-label">Beginn</span>
+        <strong>ab 19:00 Uhr</strong>
+      </div>
+      <div class="chip">
+        <span class="chip-label">Ort</span>
+        <strong>Overgasse 8a<br>8541 Bad Schwanberg</strong>
+      </div>
+    </div>
+
+    <main class="content">
+      <article class="card bring" aria-label="Mitbringsel">
+        <div class="card-header">
+          <div class="icon">🥂</div>
+          <div>
+            <h2 class="accent">Mitbringsel</h2>
+          </div>
+        </div>
+        <p>Bring ganz viel gute Laune und dein Lieblingsgetränk mit. Dann ist für den perfekten Party-Mix schon fast alles da.</p>
+      </article>
+
+      <article class="card plusone" aria-label="Plus One">
+        <div class="card-header">
+          <div class="icon">💜</div>
+          <div>
+            <h2 class="accent">Deine Plus 1</h2>
+          </div>
+        </div>
+        <p>Natürlich willkommen — bring gerne jemanden mit. Wir freuen uns über nette Begleitung, gib uns einfach kurz Bescheid.</p>
+        <div class="note">Kurze Nachricht reicht völlig aus.</div>
+      </article>
+    </main>
+
+    <section class="rsvp">
+      <h2 class="question">Bist du dabei?</h2>
+      <div class="buttons" aria-label="RSVP Buttons">
+        <button class="yes" id="yesBtn">Ja, ich komme</button>
+        <button class="no" id="noBtn">Nein</button>
+      </div>
+    </section>
+
+    <section class="signatures" aria-label="Gastgeberinnen und Gastgeber unten">
+      <div class="sig">
+        <div class="name">Kathi</div>
+        <div class="role">freut sich auf dich</div>
+      </div>
+      <div class="sig">
+        <div class="name">Michi</div>
+        <div class="role">ist dabei</div>
+      </div>
+      <div class="sig">
+        <div class="name">Nina</div>
+        <div class="role">zählt auf dich</div>
+      </div>
+    </section>
+
+    <div class="footer-note">Wir freuen uns auf einen richtig schönen Abend mit dir. 💫</div>
+  </div>
+
+  <script>
+    const WHATSAPP_INVITE = "https://chat.whatsapp.com/EYwZcsDNvkKGJL02rnB4yU?mode=gi_t";
+
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
+
+    yesBtn.addEventListener("click", () => {
+      setTimeout(() => { window.location.href = WHATSAPP_INVITE; }, 120);
+    });
+
+    let evadeCount = 0;
+    const MAX_EVADE = 3;
+
+    function moveNoButton(){
+      const btnRect = noBtn.getBoundingClientRect();
+      const pad = 12;
+
+      const maxX = Math.max(pad, window.innerWidth  - btnRect.width  - pad);
+      const maxY = Math.max(pad, window.innerHeight - btnRect.height - pad);
+
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
+
+      noBtn.style.position = "fixed";
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+      noBtn.style.zIndex = 9999;
+      noBtn.style.transition = "left .12s ease, top .12s ease, transform .12s ease";
+      noBtn.style.transform = `rotate(${(Math.random()*10 - 5).toFixed(2)}deg)`;
+    }
+
+    function resetNoButton(){
+      noBtn.style.position = "";
+      noBtn.style.left = "";
+      noBtn.style.top = "";
+      noBtn.style.zIndex = "";
+      noBtn.style.transform = "";
+      noBtn.style.transition = "";
+    }
+
+    function handleNoAttempt(evt){
+      evt.preventDefault();
+      evt.stopPropagation();
+
+      if (evadeCount < MAX_EVADE){
+        evadeCount++;
+        moveNoButton();
+        return;
+      }
+
+      const ok = window.confirm("Bist du dir sicher? 😭");
+      evadeCount = 0;
+      resetNoButton();
+
+      if (ok) {
+        window.location.href = "https://de.wikipedia.org/wiki/The_Game_(Rapper)";
+      }
+    }
+
+    noBtn.addEventListener("click", handleNoAttempt, { passive: false });
+    noBtn.addEventListener("touchstart", handleNoAttempt, { passive: false });
+  </script>
+</body>
+</html>
