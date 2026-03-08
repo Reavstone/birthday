@@ -500,7 +500,7 @@
       text-align: center;
     }
 
-    /* --- Costume gallery (horizontal scroll) --- */
+    /*
     .gallery-wrap{
       margin: 34px auto 18px;
       max-width: 900px;
@@ -540,7 +540,6 @@
       box-shadow: 0 14px 22px rgba(0,0,0,.08);
     }
     
-    /* hide scrollbar (nice-to-have) */
     .gallery::-webkit-scrollbar{ height: 10px; }
     .gallery::-webkit-scrollbar-thumb{
       background: rgba(0,0,0,.18);
@@ -583,6 +582,24 @@
     @media (max-width: 520px){
       .gallery{ grid-auto-columns: 78%; }
       .shot img{ height: 220px; }
+    }
+    */
+
+    .single-photo{
+      max-width: 720px;
+      margin: 28px auto 0;
+      border-radius: 28px;
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 36px rgba(72,40,110,.10);
+    }
+    
+    .single-photo img{
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
     }
 
     @media (max-width:640px){
@@ -699,37 +716,42 @@
         LG<br>
         Kathi, Michi &amp; Nina
       </div>
-      
+
+      <!--
       <div class="gallery" role="list">
         <figure class="shot" role="listitem">
           <img src="assets/costumes/01.jpg" alt="Kostüm Inspiration 1" loading="lazy">
-          <!-- <figcaption>✨</figcaption> -->
         </figure>
     
         <figure class="shot" role="listitem">
           <img src="assets/costumes/jakob bieber.JPEG" alt="Kostüm Inspiration 4" loading="lazy">
-          <!-- <figcaption>✨</figcaption> -->
+          <figcaption>✨</figcaption>
         </figure>
         
         <figure class="shot" role="listitem">
           <img src="assets/costumes/01.PNG" alt="Kostüm Inspiration 3" loading="lazy">
-          <!-- <figcaption>✨</figcaption> -->
+          <figcaption>✨</figcaption>
         </figure>
         
         <figure class="shot" role="listitem">
           <img src="assets/costumes/02.PNG" alt="Kostüm Inspiration 2" loading="lazy">
-          <!-- <figcaption>✨</figcaption> -->
+          <figcaption>✨</figcaption>
         </figure>
     
         <figure class="shot" role="listitem">
           <img src="assets/costumes/jedi.png" alt="Kostüm Inspiration 4" loading="lazy">
-          <!-- <figcaption>✨</figcaption> -->
+          <figcaption>✨</figcaption>
         </figure>
 
         <figure class="shot" role="listitem">
           <img src="assets/costumes/mezzo.png" alt="Kostüm Inspiration 4" loading="lazy">
-          <!-- <figcaption>✨</figcaption> -->
+          <figcaption>✨</figcaption>
         </figure>
+      </div>
+      -->
+
+      <div class="single-photo">
+        <img src="assets/costumes/knm.jpg" alt="Party Bild" loading="lazy">
       </div>
     </div>
 
@@ -787,7 +809,7 @@
         return;
       }
 
-      const ok = window.confirm("Jetzt sind wir traurig... 😭\n Gib uns aber bitte trotzdem Bescheid!");
+      const ok = window.confirm("Jetzt sind wir traurig... 😭\nGib uns aber bitte trotzdem Bescheid!");
       evadeCount = 0;
       resetNoButton();
       
